@@ -17,6 +17,22 @@ public class Song {
     public Song() {
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAlbum(String album) {
+        this.album = album;
+    }
+
+    public void setPerformer(String performer) {
+        this.performer = performer;
+    }
+
+    public void setLength(double length) {
+        this.length = length;
+    }
+
     public String getTitle() {
         return title;
     }

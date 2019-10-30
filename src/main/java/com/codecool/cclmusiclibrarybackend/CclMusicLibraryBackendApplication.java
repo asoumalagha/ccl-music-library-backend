@@ -21,7 +21,6 @@ public class CclMusicLibraryBackendApplication {
         SpringApplication.run(CclMusicLibraryBackendApplication.class, args);
     }
 
-
     @PostConstruct
     public void afterInit(){
         LOGGER.info(songCreator.createSong("example", "example", "example", 6).toString());
