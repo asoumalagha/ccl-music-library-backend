@@ -14,8 +14,23 @@ public class Song {
         this.length = length;
     }
 
+    public Song() {
+    }
+
     public String getTitle() {
         return title;
+    }
+
+    public String getAlbum() {
+        return album;
+    }
+
+    public String getPerformer() {
+        return performer;
+    }
+
+    public double getLength() {
+        return length;
     }
 
     @Override
