@@ -1,6 +1,7 @@
 package com.codecool.cclmusiclibrarybackend;
 
-import com.codecool.cclmusiclibrarybackend.service.SongCreator;
+import com.codecool.cclmusiclibrarybackend.model.Song;
+import com.codecool.cclmusiclibrarybackend.service.SongHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import javax.annotation.PostConstruct;
 public class CclMusicLibraryBackendApplication {
 
     @Autowired
-    private SongCreator songCreator;
+    private SongHandler songHandler;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CclMusicLibraryBackendApplication.class);
 
@@ -22,7 +23,13 @@ public class CclMusicLibraryBackendApplication {
     }
 
     @PostConstruct
-    public void afterInit(){
-        LOGGER.info(songCreator.createSong("example", "example", "example", 6).toString());
+    public void afterInit() {
+        songHandler.addSong("example", "example", "example", 6);
+        try {
+            Song song = songHandler.getSong("example", "example", "example", 6);
+            LOGGER.info(song.toString());
+        } catch (Exception e) {
+            LOGGER.info(e.getMessage());
+        }
     };
 }
