@@ -35,10 +35,10 @@ public class SongController {
         }
     }
 
-    @DeleteMapping("/{title}")
-    public List<Song> deleteSong(@PathVariable("title") String title) throws Exception{
+    @DeleteMapping("/{id}")
+    public List<Song> deleteSong(@PathVariable("id") Long id) throws Exception{
         try {
-            songHandler.deleteSong(title);
+            songHandler.deleteSong(id);
         } catch (Exception e) {
             LOGGER.info(e.getMessage());
         }

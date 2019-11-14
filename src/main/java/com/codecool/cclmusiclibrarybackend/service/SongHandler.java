@@ -12,7 +12,7 @@ import java.util.List;
 public class SongHandler {
 
     @Autowired
-    private SongRepository SongRepository;
+    private SongRepository songRepository;
 
     public void addSong(String title, String album, String performer, double length) {
         Song newSong = Song.builder().title(title)
@@ -20,15 +20,15 @@ public class SongHandler {
                              .performer(performer)
                              .length(length)
                              .build();
-        SongRepository.save(newSong);
+        songRepository.save(newSong);
     }
 
     public void addSong(Song song) {
-        SongRepository.save(song);
+        songRepository.save(song);
     }
 
     public Song getSong(String title, String album, String performer, double length) throws Exception {
-        for (Song song: SongRepository.findAll()) {
+        for (Song song: songRepository.findAll()) {
             if (song.getTitle().equals(title) &&
                 song.getAlbum().equals(album) &&
                 song.getPerformer().equals(performer) && song.getLength() == length) {
@@ -39,7 +39,7 @@ public class SongHandler {
     }
 
     public Song getSong(Song songToFind) throws Exception {
-        for (Song song: SongRepository.findAll()) {
+        for (Song song: songRepository.findAll()) {
             if (song == songToFind) {
                 return song;
             }
@@ -48,10 +48,10 @@ public class SongHandler {
     }
 
     public List<Song> getSongs() {
-        return SongRepository.findAll();
+        return songRepository.findAll();
     }
 
-    public void deleteSong(String title) {
-
+    public void deleteSong(Long id) {
+        songRepository.deleteSongById(id);
     }
 }
