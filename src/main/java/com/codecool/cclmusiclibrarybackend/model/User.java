@@ -10,21 +10,22 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Song {
+public class User {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
 
-    private String title;
-    private String album;
-    private String performer;
-    private double length;
+    private String username;
+    private String password;
+    private String firstName;
+    private String lastName;
+    private String email;
 
-    @ManyToMany(mappedBy = "songs", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "users")
     @EqualsAndHashCode.Exclude
     @ElementCollection
     @Singular
-    private List<User> owners;
+    private List<Song> songs;
 
 }
