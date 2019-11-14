@@ -29,7 +29,9 @@ public class SongHandler {
 
     public Song getSong(String title, String album, String performer, double length) throws Exception {
         for (Song song: SongRepository.findAll()) {
-            if (song.getTitle().equals(title) && song.getAlbum().equals(album)) {
+            if (song.getTitle().equals(title) &&
+                song.getAlbum().equals(album) &&
+                song.getPerformer().equals(performer) && song.getLength() == length) {
                 return song;
             }
         }

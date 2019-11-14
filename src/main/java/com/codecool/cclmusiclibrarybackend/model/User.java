@@ -22,7 +22,7 @@ public class User {
     private String lastName;
     private String email;
 
-    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "users")
     @EqualsAndHashCode.Exclude
     @ElementCollection
     @Singular

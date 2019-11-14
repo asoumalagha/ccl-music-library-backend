@@ -21,7 +21,7 @@ public class Song {
     private String performer;
     private double length;
 
-    @ManyToMany(mappedBy = "songs", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "songs", fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude
     @ElementCollection
     @Singular
