@@ -37,7 +37,7 @@ public class SongHandlerTest {
     @Test
     public void testGetAllSongs(){
         List<Song> songs = songHandler.getSongs();
-        assertEquals(9, songs.size());
+        assertEquals(10, songs.size());
     }
 
     @Test

@@ -40,7 +40,7 @@ public class SongHandler {
 
     public Song getSong(Song songToFind) throws Exception {
         for (Song song: songRepository.findAll()) {
-            if (song == songToFind) {
+            if (song.equals(songToFind)) {
                 return song;
             }
         }
