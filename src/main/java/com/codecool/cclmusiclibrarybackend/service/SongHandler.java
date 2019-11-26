@@ -2,9 +2,11 @@ package com.codecool.cclmusiclibrarybackend.service;
 
 
 import com.codecool.cclmusiclibrarybackend.model.Song;
-import com.codecool.cclmusiclibrarybackend.model.api.ApiResponse;
-import com.codecool.cclmusiclibrarybackend.model.api.Response;
-import com.codecool.cclmusiclibrarybackend.model.api.SongsItem;
+import com.codecool.cclmusiclibrarybackend.model.playlist.DataItem;
+import com.codecool.cclmusiclibrarybackend.model.playlist.Playlist;
+import com.codecool.cclmusiclibrarybackend.model.playlist.Tracks;
+import com.codecool.cclmusiclibrarybackend.model.search.Search;
+import com.codecool.cclmusiclibrarybackend.model.search.SearchItem;
 import com.codecool.cclmusiclibrarybackend.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,8 @@ public class SongHandler {
 
     @Autowired
     private ApiConnectionCreator apiConnectionCreator;
+
+    private Random random = new Random();
 
     public void addSong(String title, String album, String performer, double length) {
         Song newSong = Song.builder().title(title)
@@ -62,26 +66,35 @@ public class SongHandler {
     }
 
     public List<Song> getSongsFromAPI() {
-        ApiResponse apiResponse = apiConnectionCreator.getJsonFromAPI( "https://genius.p.rapidapi.com/artists/16775/songs");
-        Response response = apiResponse.getResponse();
-        List<SongsItem> songItems = response.getSongs();
+        int[] playlists = {12345,87621,87543};
+        int id = random.nextInt(3);
+        Playlist playList = apiConnectionCreator.getJsonFromAPI( "https://deezerdevs-deezer.p.rapidapi.com/playlist/"+playlists[id]);
+        Tracks tracks = playList.getTracks();
+        List<DataItem> dataItems = tracks.getData();
         List<Song> songs = new LinkedList<>();
-        for (SongsItem song: songItems){
+        for (DataItem song: dataItems){
             songs.add(Song.builder()
                 .title(song.getTitle())
-                .album(song.getFullTitle())
-                .performer(song.getPrimaryArtist().getName())
-                .length(3)
+                .album(song.getAlbum().getTitle())
+                .performer(song.getArtist().getName())
+                .length(song.getDuration())
                 .build());
         }
         return songs;
     }
 
-    public Set<Song> getSearchResult(String searchTag) {
-        Set<Song> results = new HashSet<>();
-        results.addAll(songRepository.findAllByPerformer(searchTag));
-        results.addAll(songRepository.findAllByAlbum(searchTag));
-        results.addAll(songRepository.findAllByTitle(searchTag));
-        return results;
+    public List<Song> getSearchResult(String searchTag) {
+        Search search = apiConnectionCreator.getSearchResults("https://api.deezer.com/search?redirect_uri=http%253A%252F%252Fguardian.mashape.com%252Fcallback&q="+searchTag+"&index=25");
+        List<SearchItem> dataItems = search.getData();
+        List<Song> songs = new LinkedList<>();
+        for (SearchItem song: dataItems){
+            songs.add(Song.builder()
+                    .title(song.getTitle())
+                    .album(song.getAlbum().getTitle())
+                    .performer(song.getArtist().getName())
+                    .length(song.getDuration())
+                    .build());
+        }
+        return songs;
     }
 }

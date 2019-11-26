@@ -1,7 +1,7 @@
 package com.codecool.cclmusiclibrarybackend.service;
 
-import com.codecool.cclmusiclibrarybackend.model.api.ApiResponse;
-
+import com.codecool.cclmusiclibrarybackend.model.playlist.Playlist;
+import com.codecool.cclmusiclibrarybackend.model.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -16,14 +16,25 @@ public class ApiConnectionCreator {
     @Autowired
     private RestTemplate restTemplate;
 
-    public ApiResponse getJsonFromAPI(String path) {
+    public Playlist getJsonFromAPI(String path) {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("x-rapidapi-host", "genius.p.rapidapi.com");
+        headers.add("x-rapidapi-host", "deezerdevs-deezer.p.rapidapi.com");
         headers.add("x-rapidapi-key", "0d3fb3a814msh43875e58bb25c00p1b1854jsna716108be29f");
-        ResponseEntity<ApiResponse> response = restTemplate.exchange(
+        ResponseEntity<Playlist> response = restTemplate.exchange(
                 path, HttpMethod.GET, new HttpEntity<>(headers),
-                ApiResponse.class);
+                Playlist.class);
         return response.getBody();
     }
+
+    public Search getSearchResults(String path) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("x-rapidapi-host", "deezerdevs-deezer.p.rapidapi.com");
+        headers.add("x-rapidapi-key", "0d3fb3a814msh43875e58bb25c00p1b1854jsna716108be29f");
+        ResponseEntity<Search> response = restTemplate.exchange(
+                path, HttpMethod.GET, new HttpEntity<>(headers),
+                Search.class);
+        return response.getBody();
+    }
+
 
 }

@@ -23,7 +23,7 @@ public class SongController {
     @Autowired
     private SongHandler songHandler;
 
-    @GetMapping
+    @GetMapping()
     public List<Song> homePage(){
         return songHandler.getSongsFromAPI();
     }
@@ -33,7 +33,7 @@ public class SongController {
     }
 
     @GetMapping("/{search}")
-    public Set<Song> searchForSong(@PathVariable("search") String search){
+    public List<Song> searchForSong(@PathVariable("search") String search){
         return songHandler.getSearchResult(search);
     }
 
