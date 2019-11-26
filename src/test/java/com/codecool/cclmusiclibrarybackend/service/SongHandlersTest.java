@@ -7,7 +7,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class SongHandlerTest {
+public class SongHandlersTest {
 
     @Test
     void createSong() {
