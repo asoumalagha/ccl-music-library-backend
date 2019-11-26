@@ -1,7 +1,12 @@
 package com.codecool.cclmusiclibrarybackend.repository;
 
-import com.codecool.cclmusiclibrarybackend.model.User;
+import com.codecool.cclmusiclibrarybackend.model.TodoAppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+import java.util.Optional;
+
+public interface UserRepository extends JpaRepository<TodoAppUser, Long> {
+
+    Optional<TodoAppUser> findByUsername(String username);
+
 }

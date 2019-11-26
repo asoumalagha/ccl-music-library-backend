@@ -3,6 +3,7 @@ package com.codecool.cclmusiclibrarybackend.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -10,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-public class User {
+public class TodoAppUser {
 
     @Id
     @GeneratedValue
@@ -28,4 +29,8 @@ public class User {
     @Singular
     private List<Song> songs;
 
+    // roles of the user (ADMIN, USER,..)
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
+    private List<String> roles = new ArrayList<>();
 }

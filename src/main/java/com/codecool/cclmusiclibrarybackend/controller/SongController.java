@@ -8,8 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -27,12 +25,13 @@ public class SongController {
     public List<Song> homePage(){
         return songHandler.getSongsFromAPI();
     }
+
     @GetMapping("/list")
     public List<Song> songList(){
         return songHandler.getSongs();
     }
 
-    @GetMapping("/{search}")
+    @GetMapping("/search/{search}")
     public Set<Song> searchForSong(@PathVariable("search") String search){
         return songHandler.getSearchResult(search);
     }
