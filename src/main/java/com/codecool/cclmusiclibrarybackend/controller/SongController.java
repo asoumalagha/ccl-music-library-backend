@@ -2,14 +2,13 @@ package com.codecool.cclmusiclibrarybackend.controller;
 
 import com.codecool.cclmusiclibrarybackend.CclMusicLibraryBackendApplication;
 import com.codecool.cclmusiclibrarybackend.model.Song;
-import com.codecool.cclmusiclibrarybackend.service.SongHandlers;
+import com.codecool.cclmusiclibrarybackend.service.SongHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("songs")

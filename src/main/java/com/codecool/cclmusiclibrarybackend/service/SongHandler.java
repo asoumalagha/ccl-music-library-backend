@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class SongHandlers {
+public class SongHandler {
 
     @Autowired
     private SongRepository songRepository;
