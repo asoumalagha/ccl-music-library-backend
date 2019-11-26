@@ -29,6 +29,7 @@ public class CreatorConfig {
             songHandlers.addSong("Just give me reasons", "Nate rules", "P!nk", 3.21);
             songHandlers.addSong("Manicure", "Art pop", "Lady Gaga", 3.19);
             songHandlers.addSong("Jump around", "House of Pain", "House of pain", 3.34);
+
             userHandler.addUser("testUser", "testPassword", "test", "User", "test@test.test");
         };
 
