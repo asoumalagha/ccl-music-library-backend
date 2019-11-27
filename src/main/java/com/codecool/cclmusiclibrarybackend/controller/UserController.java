@@ -21,6 +21,7 @@ public class UserController {
     private UserHandler userHandler;
 
     @GetMapping("/list")
+    @CrossOrigin
     public List<User> userList(){
         return userHandler.getUsers();
     }

@@ -31,6 +31,7 @@ public class CreatorConfig {
             songHandler.addSong("Jump around", "House of Pain", "House of pain", 3.34);
 
             userHandler.addUser("testUser", "testPassword", "test", "User", "test@test.test");
+            userHandler.addUser("test2", "test22", "Gizi", "Pizi", "gizi@gmail.com");
         };
 
     }

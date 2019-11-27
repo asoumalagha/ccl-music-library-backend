@@ -39,7 +39,17 @@ public class UserHandler {
     }
 
     public List<User> getUsers() {
+        System.out.println("users " +userRepository.findAll());
         return userRepository.findAll();
+    }
+
+    public User getUser(User findUser) throws Exception {
+        for (User user: userRepository.findAll()) {
+            if (user == findUser) {
+                return user;
+            }
+        }
+        throw new Exception();
     }
 
 //    public List<User> getUsers(Long id) {
