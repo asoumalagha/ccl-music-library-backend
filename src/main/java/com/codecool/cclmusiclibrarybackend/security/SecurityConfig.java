@@ -27,13 +27,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 //TODO set up proper antMatchers
-                .antMatchers("/songs").permitAll() // allowed by anyone
+                .antMatchers("/songs").permitAll()
+                .antMatchers("/registration").permitAll()// allowed by anyone
                 .antMatchers("/auth/signin").permitAll() // allowed by anyone
                 .antMatchers(HttpMethod.GET, "/songs/search/**").permitAll() // allowed by anyone
                 .antMatchers(HttpMethod.GET, "/songs/list").authenticated() // allowed only when signed in
                 .antMatchers(HttpMethod.POST, "/songs/add").authenticated() // allowed only when signed in
                 .antMatchers(HttpMethod.DELETE, "/songs/**").authenticated() // allowed only when signed in
-                .antMatchers( "/user/**").authenticated()
+                .antMatchers( "/user/add").permitAll()
+                .antMatchers(HttpMethod.GET,"/user/**").authenticated()
                 .anyRequest().denyAll() // anything else is denied
                 .and()
                 .addFilterBefore(new JwtTokenFilter(jwtTokenServices), UsernamePasswordAuthenticationFilter.class);

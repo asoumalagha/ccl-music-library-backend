@@ -1,6 +1,6 @@
 package com.codecool.cclmusiclibrarybackend.security;
 
-import com.codecool.cclmusiclibrarybackend.model.TodoAppUser;
+import com.codecool.cclmusiclibrarybackend.model.SongAppUser;
 import com.codecool.cclmusiclibrarybackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,10 +23,11 @@ public class CustomUserDetailsService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        TodoAppUser user = users.findByUsername(username)
+        SongAppUser user = users.findByUserName(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Username: " + username + " not found"));
 
-        return new User(user.getUsername(), user.getPassword(),
+
+        return new User(user.getUserName(), user.getPassword(),
                 user.getRoles().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
     }
 

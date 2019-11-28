@@ -1,7 +1,7 @@
 package com.codecool.cclmusiclibrarybackend.service;
 
 
-import com.codecool.cclmusiclibrarybackend.model.TodoAppUser;
+import com.codecool.cclmusiclibrarybackend.model.SongAppUser;
 import com.codecool.cclmusiclibrarybackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -23,7 +23,7 @@ public class UserHandler {
     }
 
     public void addUser(String username, String password, String firstName, String lastName, String email) {
-        TodoAppUser newTodoAppUser = TodoAppUser.builder().username(username)
+        SongAppUser newTodoAppUser = SongAppUser.builder().userName(username)
                                      .password(passwordEncoder.encode(password))
                                      .firstName(firstName)
                                      .lastName(lastName)
@@ -32,18 +32,18 @@ public class UserHandler {
         userRepository.save(newTodoAppUser);
     }
 
-    public void addUser(TodoAppUser user) {
+    public void addUser(SongAppUser user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
-    public List<TodoAppUser> getUsers() {
+    public List<SongAppUser> getUsers() {
         System.out.println("users " +userRepository.findAll());
         return userRepository.findAll();
     }
 
-    public TodoAppUser getUser(TodoAppUser findUser) throws Exception {
-        for (TodoAppUser user: userRepository.findAll()) {
+    public SongAppUser getUser(SongAppUser findUser) throws Exception {
+        for (SongAppUser user: userRepository.findAll()) {
             if (user == findUser) {
                 return user;
             }
