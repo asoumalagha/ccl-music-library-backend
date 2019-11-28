@@ -25,6 +25,6 @@ public class Song {
     @EqualsAndHashCode.Exclude
     @ElementCollection
     @Singular
-    private List<User> owners;
+    private List<TodoAppUser> owners;
 
 }

@@ -24,6 +24,7 @@ public class SongController {
     public List<Song> homePage(){
         return songHandler.getSongsFromAPI();
     }
+
     @GetMapping("/list")
     public List<Song> songList(){
         return songHandler.getSongs();
