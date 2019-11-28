@@ -29,6 +29,7 @@ public class UserController {
 
     @PostMapping("/add")
     public List<TodoAppUser> addUser(@RequestBody TodoAppUser user){
+        System.out.println("add");
         userHandler.addUser(user);
         try {
             return userHandler.getUsers();

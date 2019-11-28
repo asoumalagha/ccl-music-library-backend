@@ -33,6 +33,7 @@ public class UserHandler {
     }
 
     public void addUser(TodoAppUser user) {
+        System.out.println("add");
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }

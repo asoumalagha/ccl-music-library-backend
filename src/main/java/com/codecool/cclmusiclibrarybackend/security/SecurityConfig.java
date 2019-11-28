@@ -33,7 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/songs/list").authenticated() // allowed only when signed in
                 .antMatchers(HttpMethod.POST, "/songs/add").authenticated() // allowed only when signed in
                 .antMatchers(HttpMethod.DELETE, "/songs/**").authenticated() // allowed only when signed in
-                .antMatchers( "/user/**").authenticated()
+                .antMatchers( "/user/add").permitAll()
+//                .antMatchers( "/user/**").authenticated()
                 .anyRequest().denyAll() // anything else is denied
                 .and()
                 .addFilterBefore(new JwtTokenFilter(jwtTokenServices), UsernamePasswordAuthenticationFilter.class);
