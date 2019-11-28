@@ -11,14 +11,14 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-public class TodoAppUser {
+public class SongAppUser {
 
     @Id
     @GeneratedValue
     private long id;
 
     @Column(nullable = false, unique = true)
-    private String username;
+    private String userName;
 
     private String password;
     private String firstName;
@@ -31,7 +31,6 @@ public class TodoAppUser {
     @Singular
     private List<Song> songs;
 
-    // roles of the user (ADMIN, USER,..)
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private List<String> roles = new ArrayList<>();
