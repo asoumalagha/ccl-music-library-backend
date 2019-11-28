@@ -30,6 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/songs").permitAll()
                 .antMatchers("/registration").permitAll()// allowed by anyone
                 .antMatchers("/auth/signin").permitAll() // allowed by anyone
+                .antMatchers(HttpMethod.OPTIONS, "/songs/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/songs/search/**").permitAll() // allowed by anyone
                 .antMatchers(HttpMethod.GET, "/songs/list").authenticated() // allowed only when signed in
                 .antMatchers(HttpMethod.POST, "/songs/add").authenticated() // allowed only when signed in
