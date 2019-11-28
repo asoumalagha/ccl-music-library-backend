@@ -17,7 +17,9 @@ public class TodoAppUser {
     @GeneratedValue
     private long id;
 
+    @Column(nullable = false, unique = true)
     private String username;
+
     private String password;
     private String firstName;
     private String lastName;
