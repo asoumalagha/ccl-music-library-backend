@@ -1,7 +1,7 @@
 package com.codecool.cclmusiclibrarybackend.controller;
 
 import com.codecool.cclmusiclibrarybackend.CclMusicLibraryBackendApplication;
-import com.codecool.cclmusiclibrarybackend.model.User;
+import com.codecool.cclmusiclibrarybackend.model.TodoAppUser;
 import com.codecool.cclmusiclibrarybackend.service.UserHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,13 +22,13 @@ public class UserController {
 
     @GetMapping("/list")
     @CrossOrigin
-    public List<User> userList(){
+    public List<TodoAppUser> userList(){
         return userHandler.getUsers();
     }
 
 
     @PostMapping("/add")
-    public List<User> addUser(@RequestBody User user){
+    public List<TodoAppUser> addUser(@RequestBody TodoAppUser user){
         userHandler.addUser(user);
         try {
             return userHandler.getUsers();

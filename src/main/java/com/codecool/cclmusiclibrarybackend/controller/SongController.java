@@ -30,7 +30,7 @@ public class SongController {
         return songHandler.getSongs();
     }
 
-    @GetMapping("/{search}")
+    @GetMapping("/search/{search}")
     public List<Song> searchForSong(@PathVariable("search") String search){
         return songHandler.getSearchResult(search);
     }

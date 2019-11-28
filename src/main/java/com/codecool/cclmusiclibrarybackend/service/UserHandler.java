@@ -5,10 +5,8 @@ import com.codecool.cclmusiclibrarybackend.model.TodoAppUser;
 import com.codecool.cclmusiclibrarybackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
@@ -34,18 +32,18 @@ public class UserHandler {
         userRepository.save(newTodoAppUser);
     }
 
-    public void addUser(User user) {
+    public void addUser(TodoAppUser user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
-    public List<User> getUsers() {
+    public List<TodoAppUser> getUsers() {
         System.out.println("users " +userRepository.findAll());
         return userRepository.findAll();
     }
 
-    public User getUser(User findUser) throws Exception {
-        for (User user: userRepository.findAll()) {
+    public TodoAppUser getUser(TodoAppUser findUser) throws Exception {
+        for (TodoAppUser user: userRepository.findAll()) {
             if (user == findUser) {
                 return user;
             }
