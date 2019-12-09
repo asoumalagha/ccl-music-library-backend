@@ -33,36 +33,21 @@ public class SongHandler {
         songRepository.save(newSong);
     }
 
-    public void addSong(Song song) {
-        songRepository.save(song);
+    public void addSongToUser(Song song, Long id) {
+        //Todo: Implement addSongToUser in songRepository
     }
 
-    public Song getSong(String title, String album, String performer, double length) throws Exception {
-        for (Song song: songRepository.findAll()) {
-            if (song.getTitle().equals(title) &&
-                song.getAlbum().equals(album) &&
-                song.getPerformer().equals(performer) && song.getLength() == length) {
-                return song;
-            }
-        }
-        throw new Exception();
+    public Song getSong(String title, String album, String performer, double length){
+        return songRepository.findSongByTitleAndAlbumAndPerformerAndLength(title, album,performer,length);
     }
 
-    public Song getSong(Song songToFind) throws Exception {
-        for (Song song: songRepository.findAll()) {
-            if (song == songToFind) {
-                return song;
-            }
-        }
-        throw new Exception();
+    public List<Song> getSongsByUserId(Long id) {
+        //Todo: Implement getSongsByUserId in songRepository
+        return null;
     }
 
-    public List<Song> getSongs() {
-        return songRepository.findAll();
-    }
-
-    public void deleteSong(Long id) {
-        songRepository.deleteSongById(id);
+    public void deleteSongFromUser(Long id, Long songId) {
+        //Todo: Implement deleteSongFromUser in songRepository
     }
 
     public List<Song> getSongsFromAPI() {

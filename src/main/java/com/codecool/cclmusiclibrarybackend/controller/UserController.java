@@ -21,22 +21,24 @@ public class UserController {
     @Autowired
     private UserHandler userHandler;
 
+    //Get users
     @GetMapping("/list")
     @CrossOrigin
     public List<SongAppUser> userList(){
         return userHandler.getUsers();
     }
 
-
+    //Add new user
     @PostMapping("/add")
     @CrossOrigin
     public void addUser(@RequestBody SongAppUser user){
         userHandler.addUser(user);
     }
 
+    //Delete user
     @GetMapping("/{id}")
     @CrossOrigin
-    public List<SongAppUser> searchForSong(@PathVariable("id") Long id){
+    public List<SongAppUser> searchForUser(@PathVariable("id") Long id){
         return userHandler.getUser(id);
     }
 }

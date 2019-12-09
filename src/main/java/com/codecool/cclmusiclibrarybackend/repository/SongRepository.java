@@ -7,16 +7,11 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 public interface SongRepository extends JpaRepository<Song, Long> {
-
     @Transactional
-    void deleteSongById(Long id);
+    Song findSongByTitleAndAlbumAndPerformerAndLength(String title, String album, String performer, double length);
 
-    @Transactional
-    List<Song> findAllByAlbum(String album);
 
-    @Transactional
-    List<Song> findAllByPerformer(String performer);
 
-    @Transactional
-    List<Song> findAllByTitle(String title);
 }
+
+

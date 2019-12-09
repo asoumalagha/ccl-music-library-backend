@@ -20,40 +20,43 @@ public class SongController {
     @Autowired
     private SongHandler songHandler;
 
+
+
     @GetMapping
-    public List<Song> homePage(){
+    public List<Song> getSongsFromAPI(){
         return songHandler.getSongsFromAPI();
     }
 
-    @GetMapping("/list")
-    public List<Song> songList(){
-        return songHandler.getSongs();
+
+    @GetMapping("/{id}")
+    public List<Song> getSongsByUserId(@PathVariable("id") Long id){
+        return songHandler.getSongsByUserId(id);
     }
+
 
     @GetMapping("/search/{search}")
     public List<Song> searchForSong(@PathVariable("search") String search){
         return songHandler.getSearchResult(search);
     }
 
-    @PostMapping("/add")
-    public Song addSong(@RequestBody Song song){
-        songHandler.addSong(song);
-        try {
-            return songHandler.getSong(song);
-        } catch (Exception e) {
-            return null;
-        }
-    }
 
-    @DeleteMapping("/{id}")
-    public List<Song> deleteSong(@PathVariable("id") Long id) throws Exception{
+    @PostMapping("/{id}")
+    public void addSongToUser(@PathVariable("id") Long id, @RequestBody Song song){
         try {
-            songHandler.deleteSong(id);
+            songHandler.addSongToUser(song, id);
         } catch (Exception e) {
             LOGGER.info(e.getMessage());
         }
-        return songHandler.getSongs();
+    }
 
+
+    @DeleteMapping("/{id}")
+    public void deleteSongFromUser(@PathVariable("id") Long id, @RequestBody Long songId){
+        try {
+            songHandler.deleteSongFromUser(id, songId);
+        } catch (Exception e) {
+            LOGGER.info(e.getMessage());
+        }
     }
 
 }
