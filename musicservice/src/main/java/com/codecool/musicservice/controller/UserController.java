@@ -34,7 +34,7 @@ public class UserController {
         userHandler.addUser(user);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/search/{id}")
     @CrossOrigin
     public List<SongAppUser> searchForSong(@PathVariable("id") Long id){
         return userHandler.getUser(id);
@@ -42,7 +42,7 @@ public class UserController {
 
     @GetMapping("/{username}")
     @CrossOrigin
-    public SongAppUser getUserByUserName(@PathVariable("username") String username) throws UserNotFoundException {
-        return userHandler.getUserByUserName(username).orElseThrow(() -> new UserNotFoundException(username));
+    public SongAppUser getUserByUserName(@PathVariable("username") String userName) throws UserNotFoundException {
+        return userHandler.getUserByUserName(userName).orElseThrow(() -> new UserNotFoundException(userName));
     }
 }

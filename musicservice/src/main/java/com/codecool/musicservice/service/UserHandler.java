@@ -3,6 +3,7 @@ package com.codecool.musicservice.service;
 
 import com.codecool.musicservice.model.SongAppUser;
 import com.codecool.musicservice.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,7 +12,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
+@Slf4j
 public class UserHandler {
 
     private final PasswordEncoder passwordEncoder;
@@ -47,7 +50,8 @@ public class UserHandler {
         return userRepository.findAllById(id);
     }
 
-    public Optional<SongAppUser> getUserByUserName(String username) {
-        return userRepository.findByUserName(username);
+    public Optional<SongAppUser> getUserByUserName(String userName) {
+        log.info(userName);
+        return userRepository.findByUserName(userName);
     }
 }

@@ -18,6 +18,7 @@ public class UserServiceCaller {
     private String baseUrl;
 
     public AppUser findUserByUserName(String username) {
+        log.info(username);
         return restTemplate.getForObject(baseUrl + "/" + username, AppUser.class);
     }
 
