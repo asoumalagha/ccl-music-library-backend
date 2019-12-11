@@ -1,8 +1,7 @@
-package com.codecool.musicservice.controller;
+package com.codecool.apigateway.controller;
 
-import com.codecool.musicservice.model.UserCredentials;
-import com.codecool.musicservice.repository.UserRepository;
-import com.codecool.musicservice.security.JwtTokenServices;
+import com.codecool.apigateway.model.UserCredentials;
+import com.codecool.apigateway.security.JwtTokenServices;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -26,7 +25,7 @@ public class AuthController {
 
     private final JwtTokenServices jwtTokenServices;
 
-    public AuthController(AuthenticationManager authenticationManager, JwtTokenServices jwtTokenServices, UserRepository users) {
+    public AuthController(AuthenticationManager authenticationManager, JwtTokenServices jwtTokenServices) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenServices = jwtTokenServices;
     }

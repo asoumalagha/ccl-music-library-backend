@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserHandler {
@@ -38,7 +39,7 @@ public class UserHandler {
     }
 
     public List<SongAppUser> getUsers() {
-        System.out.println("users " +userRepository.findAll());
+        System.out.println("users " + userRepository.findAll());
         return userRepository.findAll();
     }
 
@@ -46,5 +47,7 @@ public class UserHandler {
         return userRepository.findAllById(id);
     }
 
-
+    public Optional<SongAppUser> getUserByUserName(String username) {
+        return userRepository.findByUserName(username);
+    }
 }
