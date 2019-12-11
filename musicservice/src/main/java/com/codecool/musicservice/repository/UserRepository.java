@@ -15,4 +15,7 @@ public interface UserRepository extends JpaRepository<SongAppUser, Long> {
     @Transactional
     List<SongAppUser> findAllById(Long id);
 
+    @Transactional
+    SongAppUser findSongAppUserByUserName(String username);
+
 }

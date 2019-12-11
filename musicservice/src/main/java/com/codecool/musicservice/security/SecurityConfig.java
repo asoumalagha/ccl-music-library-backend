@@ -26,23 +26,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                //TODO set up proper antMatchers
-                .antMatchers("/songs").permitAll()
-                .antMatchers("/registration").permitAll()// allowed by anyone
-                .antMatchers("/auth/signin").permitAll() // allowed by anyone
-                .antMatchers("/user/list").permitAll()
-                .antMatchers("/user/**").permitAll() // allowed by anyone
-                .antMatchers(HttpMethod.OPTIONS, "/songs/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/songs/search/**").permitAll() // allowed by anyone
-                .antMatchers(HttpMethod.GET, "/songs/list").authenticated() // allowed only when signed in
-                .antMatchers(HttpMethod.POST, "/songs/add").authenticated() // allowed only when signed in
-                .antMatchers(HttpMethod.DELETE, "/songs/**").authenticated() // allowed only when signed in
-                .antMatchers( "/user/add").permitAll()
-//                .antMatchers(HttpMethod.GET,"/user/**").authenticated()
+                .antMatchers("musicservice/songs").permitAll()
+                .antMatchers(HttpMethod.GET, "musicservice/songs/search/**").permitAll()
+                .antMatchers(HttpMethod.GET,"musicservice/songs/user/**").authenticated()
+                .antMatchers(HttpMethod.POST,"musicservice/songs/user/**").authenticated()
+                .antMatchers(HttpMethod.DELETE,"musicservice/songs/user/**").authenticated()
+                .antMatchers(HttpMethod.OPTIONS,"musicservice/songs/user/**").permitAll()
+                .antMatchers("musicservice/registration").permitAll()// allowed by anyone
+                .antMatchers("musicservice/auth/signin").permitAll()
+                .antMatchers( "musicservice/user/add").permitAll()
+                .antMatchers( "musicservice/user/delete").authenticated()
+                .antMatchers( "musicservice/user/list").authenticated()// allowed by anyone
                 .anyRequest().denyAll() // anything else is denied
                 .and()
                 .addFilterBefore(new JwtTokenFilter(jwtTokenServices), UsernamePasswordAuthenticationFilter.class);
     }
+
 
     @Bean
     @Override

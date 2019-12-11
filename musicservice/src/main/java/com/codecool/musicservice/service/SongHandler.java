@@ -2,12 +2,14 @@ package com.codecool.musicservice.service;
 
 
 import com.codecool.musicservice.model.Song;
+import com.codecool.musicservice.model.SongAppUser;
 import com.codecool.musicservice.model.playlist.DataItem;
 import com.codecool.musicservice.model.playlist.Playlist;
 import com.codecool.musicservice.model.playlist.Tracks;
 import com.codecool.musicservice.model.search.Search;
 import com.codecool.musicservice.model.search.SearchItem;
 import com.codecool.musicservice.repository.SongRepository;
+import com.codecool.musicservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,47 +24,54 @@ public class SongHandler {
     @Autowired
     private ApiConnectionCreator apiConnectionCreator;
 
+    @Autowired
+    private UserRepository userRepository;
+
     private Random random = new Random();
 
     public void addSong(String title, String album, String performer, double length) {
         Song newSong = Song.builder().title(title)
-                             .album(album)
-                             .performer(performer)
-                             .length(length)
-                             .build();
+                .album(album)
+                .performer(performer)
+                .length(length)
+                .build();
         songRepository.save(newSong);
     }
 
-    public void addSong(Song song) {
-        songRepository.save(song);
-    }
 
-    public Song getSong(String title, String album, String performer, double length) throws Exception {
-        for (Song song: songRepository.findAll()) {
-            if (song.getTitle().equals(title) &&
-                song.getAlbum().equals(album) &&
-                song.getPerformer().equals(performer) && song.getLength() == length) {
-                return song;
-            }
+    public void addSongToUser(Song song, String username) {
+        if(getSong(song.getTitle(), song.getAlbum(), song.getPerformer(), song.getLength()) != null){
+            addSongToUserPlaylist(song, username);
         }
-        throw new Exception();
-    }
-
-    public Song getSong(Song songToFind) throws Exception {
-        for (Song song: songRepository.findAll()) {
-            if (song == songToFind) {
-                return song;
-            }
+        else{
+            songRepository.save(song);
+            addSongToUserPlaylist(song, username);
         }
-        throw new Exception();
     }
 
-    public List<Song> getSongs() {
-        return songRepository.findAll();
+    private void addSongToUserPlaylist(Song song, String username){
+        SongAppUser user = userRepository.findSongAppUserByUserName(username);
+        user.getSongs().add(song);
+        userRepository.save(user);
     }
 
-    public void deleteSong(Long id) {
-        songRepository.deleteSongById(id);
+    public Song getSong(String title, String album, String performer, double length){
+        return songRepository.findSongByTitleAndAlbumAndPerformerAndLength(title, album,performer,length);
+    }
+
+    public List<Song> getSongsByUserName(String username) {
+        SongAppUser user = userRepository.findSongAppUserByUserName(username);
+        return user.getSongs();
+    }
+
+    public void deleteSongFromUser(String username, Long songId) {
+        Song song = songRepository.getOne(songId);
+        SongAppUser user = userRepository.findSongAppUserByUserName(username);
+        user.getSongs().remove(song);
+        userRepository.save(user);
+        if (song.getOwners().size() == 0){
+            songRepository.delete(song);
+        }
     }
 
     public List<Song> getSongsFromAPI() {
@@ -74,11 +83,11 @@ public class SongHandler {
         List<Song> songs = new LinkedList<>();
         for (DataItem song: dataItems){
             songs.add(Song.builder()
-                .title(song.getTitle())
-                .album(song.getAlbum().getTitle())
-                .performer(song.getArtist().getName())
-                .length(song.getDuration())
-                .build());
+                    .title(song.getTitle())
+                    .album(song.getAlbum().getTitle())
+                    .performer(song.getArtist().getName())
+                    .length(song.getDuration())
+                    .build());
         }
         return songs;
     }
