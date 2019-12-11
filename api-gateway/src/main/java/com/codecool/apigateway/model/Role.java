@@ -1,4 +1,4 @@
-package com.codecool.musicservice.model;
+package com.codecool.apigateway.model;
 
 
 public enum Role {

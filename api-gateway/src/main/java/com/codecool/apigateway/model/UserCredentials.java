@@ -1,4 +1,4 @@
-package com.codecool.musicservice.model;
+package com.codecool.apigateway.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

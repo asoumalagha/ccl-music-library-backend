@@ -1,5 +1,6 @@
-package com.codecool.musicservice.security;
+package com.codecool.apigateway.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -12,6 +13,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
     private final JwtTokenServices jwtTokenServices;
 
     public SecurityConfig(JwtTokenServices jwtTokenServices) {
@@ -27,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 //TODO set up proper antMatchers
-                .antMatchers("/songs").permitAll()
+                .antMatchers("/musicservice/songs").permitAll()
                 .antMatchers("/registration").permitAll()// allowed by anyone
                 .antMatchers("/auth/signin").permitAll() // allowed by anyone
                 .antMatchers("/user/list").permitAll()

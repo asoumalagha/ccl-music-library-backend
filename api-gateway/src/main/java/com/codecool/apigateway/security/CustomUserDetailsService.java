@@ -1,7 +1,7 @@
-package com.codecool.musicservice.security;
+package com.codecool.apigateway.security;
 
-import com.codecool.musicservice.model.SongAppUser;
-import com.codecool.musicservice.repository.UserRepository;
+import com.codecool.apigateway.model.AppUser;
+import com.codecool.apigateway.service.UserServiceCaller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -16,15 +16,15 @@ import java.util.stream.Collectors;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserRepository users;
+    private UserServiceCaller userServiceCaller;
 
     /**
      * Loads the user from the DB and converts it to Spring Security's internal User object
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        SongAppUser user = users.findByUserName(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Username: " + username + " not found"));
+        AppUser user = userServiceCaller.findUserByUserName(username);
+                //.orElseThrow(() -> new UsernameNotFoundException("Username: " + username + " not found"));
 
 
         return new User(user.getUserName(), user.getPassword(),

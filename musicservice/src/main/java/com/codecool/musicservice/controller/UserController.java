@@ -1,6 +1,7 @@
 package com.codecool.musicservice.controller;
 
 import com.codecool.musicservice.MusicServiceApplication;
+import com.codecool.musicservice.exception.UserNotFoundException;
 import com.codecool.musicservice.model.SongAppUser;
 import com.codecool.musicservice.service.UserHandler;
 import org.slf4j.Logger;
@@ -37,5 +38,11 @@ public class UserController {
     @CrossOrigin
     public List<SongAppUser> searchForSong(@PathVariable("id") Long id){
         return userHandler.getUser(id);
+    }
+
+    @GetMapping("/{username}")
+    @CrossOrigin
+    public SongAppUser getUserByUserName(@PathVariable("username") String username) throws UserNotFoundException {
+        return userHandler.getUserByUserName(username).orElseThrow(() -> new UserNotFoundException(username));
     }
 }
