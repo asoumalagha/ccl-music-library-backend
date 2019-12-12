@@ -8,11 +8,17 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/vote")
+@CrossOrigin
 @Slf4j
 public class VoteController {
 
     @Autowired
     VoteHandler voteHandler;
+
+    @GetMapping("/setDefault/{songId}")
+    public void setDefault(@PathVariable("songId") Long songId) {
+        voteHandler.addVote(songId, 0);
+    }
 
     @GetMapping("/{songId}")
     public Vote getVote(@PathVariable("songId") Long songId) {

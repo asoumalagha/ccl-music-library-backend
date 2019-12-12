@@ -34,7 +34,6 @@ public class SongController {
         return songHandler.getSongsByUserName(username);
     }
 
-
     @GetMapping("/search/{search}")
     public List<Song> searchForSong(@PathVariable("search") String search){
         return songHandler.getSearchResult(search);

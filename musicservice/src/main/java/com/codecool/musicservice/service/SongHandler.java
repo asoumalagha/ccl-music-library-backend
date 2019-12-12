@@ -13,6 +13,7 @@ import com.codecool.musicservice.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 
@@ -31,6 +32,9 @@ public class SongHandler {
 
     private Random random = new Random();
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     public void addSong(String title, String album, String performer, double length) {
         Song newSong = Song.builder().title(title)
                 .album(album)
@@ -44,6 +48,7 @@ public class SongHandler {
     public void addSongToUser(Song song, String username) {
         if(getSong(song.getTitle(), song.getAlbum(), song.getPerformer(), song.getLength()) != null){
             addSongToUserPlaylist(song, username);
+
         }
         else{
             songRepository.save(song);
@@ -55,6 +60,7 @@ public class SongHandler {
         SongAppUser user = userRepository.findSongAppUserByUserName(username);
         user.getSongs().add(song);
         userRepository.save(user);
+        restTemplate.postForObject("http://voteservice/vote/setDefault/" + song.getId(), song.getId(), Void.class);
     }
 
     public Song getSong(String title, String album, String performer, double length){
