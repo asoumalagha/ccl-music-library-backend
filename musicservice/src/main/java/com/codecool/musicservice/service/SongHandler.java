@@ -10,12 +10,14 @@ import com.codecool.musicservice.model.search.Search;
 import com.codecool.musicservice.model.search.SearchItem;
 import com.codecool.musicservice.repository.SongRepository;
 import com.codecool.musicservice.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
+@Slf4j
 public class SongHandler {
 
     @Autowired
@@ -66,6 +68,15 @@ public class SongHandler {
 
     public void deleteSongFromUser(String username, Long songId) {
         Song song = songRepository.getOne(songId);
+        SongAppUser user = userRepository.findSongAppUserByUserName(username);
+        user.getSongs().remove(song);
+        userRepository.save(user);
+        if (song.getOwners().size() == 0){
+            songRepository.delete(song);
+        }
+    }
+
+    public void deleteSongFromUser(String username, Song song) {
         SongAppUser user = userRepository.findSongAppUserByUserName(username);
         user.getSongs().remove(song);
         userRepository.save(user);

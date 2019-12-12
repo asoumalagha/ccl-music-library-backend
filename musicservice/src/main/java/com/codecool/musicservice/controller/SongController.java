@@ -3,6 +3,7 @@ package com.codecool.musicservice.controller;
 import com.codecool.musicservice.MusicServiceApplication;
 import com.codecool.musicservice.model.Song;
 import com.codecool.musicservice.service.SongHandler;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("songs")
 @CrossOrigin
+@Slf4j
 public class SongController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(MusicServiceApplication.class);
@@ -48,10 +50,10 @@ public class SongController {
         }
     }
 
-    @DeleteMapping("user/{username}")
-    public void deleteSongFromUser(@PathVariable("username") String username, @RequestBody Long songId){
+    @DeleteMapping("/user/{username}")
+    public void deleteSongFromUser(@PathVariable("username") String username, @RequestBody Song song){
         try {
-            songHandler.deleteSongFromUser(username, songId);
+            songHandler.deleteSongFromUser(username, song);
         } catch (Exception e) {
             LOGGER.info(e.getMessage());
         }
