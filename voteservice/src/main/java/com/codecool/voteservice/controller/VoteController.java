@@ -14,12 +14,12 @@ public class VoteController {
     @Autowired
     VoteHandler voteHandler;
 
-    @GetMapping("/getVote/{songId}")
+    @GetMapping("/{songId}")
     public Vote getVote(@PathVariable("songId") Long songId) {
         return voteHandler.getVote(songId);
     }
 
-    @PostMapping("/addVote/{songId}")
+    @PostMapping("/{songId}")
     public void addVote(@PathVariable("songId") Long songId, @RequestBody int voteValue) {
         try {
             voteHandler.addVote(songId, voteValue);
@@ -28,7 +28,7 @@ public class VoteController {
         }
     }
 
-    @PutMapping("/updateVote/{songId}")
+    @PutMapping("/{songId}")
     public void updateVote(@PathVariable("songId") Long songId, @RequestBody int voteValue) {
         try {
             voteHandler.updateVote(songId, voteValue);
