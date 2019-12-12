@@ -50,10 +50,10 @@ public class SongController {
         }
     }
 
-    @DeleteMapping("/user/{username}")
-    public void deleteSongFromUser(@PathVariable("username") String username, @RequestBody Song song){
+    @DeleteMapping("/user/{username}/song/{songId}")
+    public void deleteSongFromUser(@PathVariable("username") String username, @PathVariable("songId") Long songId){
         try {
-            songHandler.deleteSongFromUser(username, song);
+            songHandler.deleteSongFromUser(username, songId);
         } catch (Exception e) {
             LOGGER.info(e.getMessage());
         }
