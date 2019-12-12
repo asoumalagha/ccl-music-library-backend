@@ -41,6 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers( "/musicservice/user/delete").authenticated()
                 .antMatchers( "/musicservice/user/list").authenticated()
                 .antMatchers( HttpMethod.OPTIONS,"/musicservice/user/**").permitAll()
+                .antMatchers( HttpMethod.OPTIONS,"/voteservice/**").permitAll()
+                .antMatchers("/voteservice/**").authenticated()
                 // allowed by anyone
                 .anyRequest().denyAll() // anything else is denied
                 .and()
