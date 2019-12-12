@@ -30,6 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/musicservice/songs").permitAll()
+                .antMatchers("/commentservice/**").authenticated()
                 .antMatchers(HttpMethod.GET, "/musicservice/songs/search/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/musicservice/songs/user/**").authenticated()
                 .antMatchers(HttpMethod.POST,"/musicservice/songs/user/**").authenticated()
@@ -40,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers( "/musicservice/user/add").permitAll()
                 .antMatchers( "/musicservice/user/delete").authenticated()
                 .antMatchers( "/musicservice/user/list").authenticated()
+                .antMatchers( HttpMethod.OPTIONS,"/commentservice/**").permitAll()
                 .antMatchers( HttpMethod.OPTIONS,"/musicservice/user/**").permitAll()
                 // allowed by anyone
                 .anyRequest().denyAll() // anything else is denied
