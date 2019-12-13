@@ -33,7 +33,7 @@ public class SongHandler {
     private Random random = new Random();
 
     @Autowired
-    private RestTemplate restTemplate;
+    private RestTemplate restTemplate2;
 
     public void addSong(String title, String album, String performer, double length) {
         Song newSong = Song.builder().title(title)
@@ -60,7 +60,7 @@ public class SongHandler {
         SongAppUser user = userRepository.findSongAppUserByUserName(username);
         user.getSongs().add(song);
         userRepository.save(user);
-        restTemplate.postForObject("http://voteservice/vote/setDefault/" + song.getId(), song.getId(), Void.class);
+        restTemplate2.postForObject("http://voteservice/vote/setDefault/" + song.getId(), song.getId(), Void.class);
     }
 
     public Song getSong(String title, String album, String performer, double length){
